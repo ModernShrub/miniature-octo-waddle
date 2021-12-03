@@ -32,7 +32,21 @@ odrp = ttk.Combobox(root, state="readonly", width=30,values=langlist)
 odrp.place(relx=0.85,rely=0.3,anchor=CENTER)
 odrp.set("select output language")
 
-btn = Button(root, text="Translate", bg="navajo white", relief=FLAT, font=("Terminal", 10, "bold"))
+def trans():
+    t = Translator()
+    try:
+        src = sdrp.get()
+        txt = stxt.get("1.0", END)
+        dst = odrp.get()
+        ted = t.translate(txt, dst, src)
+        print(ted)
+        otxt.delete("1.0", END)
+        otxt.insert(END, ted.text)
+    except:
+        print("try again")
+    
+
+btn = Button(root, text="Translate", bg="navajo white", relief=FLAT, font=("Terminal", 10, "bold"), command=trans)
 btn.place(relx=0.5, rely=0.9, anchor=CENTER)
 
 root.mainloop()
